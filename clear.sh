@@ -39,7 +39,7 @@ function ValidarOpcoes () {
    fi
 }
 
-#Inicio 
+#Início 
 while true;
 do
    if [ $? -ne "0" ]; then
