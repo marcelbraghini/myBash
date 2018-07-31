@@ -1,23 +1,72 @@
 #!/bin/bash
 
 #Funções
+function confereSistemaOperacional (){
+   cod=`uname -mrs`
+   export cod
+   if echo "$cod" | egrep 'Linux' >/dev/null
+      then
+         return 1
+      else
+         return 0   
+   fi
+   #Recupero o retorno assim: 
+   # valor=$(confereSistemaOperacional)
+   # echo $?-mostra-> retorno || $valor-> mostra se existir echo
+}
+
 function Atualizar () {
-   echo "Atualizando o sistema ..."
+   echo "Atualizando o sistema operacional..."
+   valor=$(confereSistemaOperacional)
+   if [ $? -eq 0 ]
+      then
+         #LINUX Chamar a atualização
+         echo ""
+      else
+         #MAC Chamar a atualização
+         echo ""
+   fi
 }
  
 function LimparLixeira () {
-   echo "Limpando a lixeira ..."
+   echo "Limpando sua lixeira ..."
+   valor=$(confereSistemaOperacional)
+   if [ $? -eq 0 ];
+      then
+         #LINUX Chamar a atualização
+         echo ""
+      else
+         #MAC Chamar a atualização
+         echo ""
+   fi
 }
  
 function RemoverCache () {
    echo "Removendo a cache ..."
+   valor=$(confereSistemaOperacional)
+   if [ $? -eq 0 ];
+      then
+         #LINUX Chamar a atualização
+         echo ""
+      else
+         #MAC Chamar a atualização
+         echo ""
+   fi
 }
  
 function RepararPermissoes () {
    echo "Reparando permissões ..."
+   valor=$(confereSistemaOperacional)
+   if [ $? -eq 0 ]
+      then
+         #LINUX Chamar a atualização
+         echo ""
+      else
+         #MAC Chamar a atualização
+         echo ""
+   fi
 }
  
-#Condições
 function ValidarOpcoes () {
    clear
    if [ $1 = "1" ]; then
@@ -39,7 +88,6 @@ function ValidarOpcoes () {
    fi
 }
 
-#Início 
 while true;
 do
    if [ $? -ne "0" ]; then
