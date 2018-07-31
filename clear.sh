@@ -2,12 +2,15 @@
 
 #Funções
 function confereSistemaOperacional (){
+   #Guardo o resultado do método que busca as informações do sistema
    cod=`uname -mrs`
-   export cod
+   #Verifico se possui uma string linux dentro do resultado
    if echo "$cod" | egrep 'Linux' >/dev/null
       then
+         #Caso tenha linux devolve true
          return 1
       else
+         #Caso não seja devolve false
          return 0   
    fi
    #Recupero o retorno assim: 
@@ -17,57 +20,88 @@ function confereSistemaOperacional (){
 
 function Atualizar () {
    echo "Atualizando o sistema operacional..."
+   #Chama o método que confere qual o sistema
    valor=$(confereSistemaOperacional)
-   if [ $? -eq 0 ]
+   #Confere se é true ou false
+   if [ $? -eq 1 ]
       then
          #LINUX Chamar a atualização
-         echo ""
+         echo "Linux"
       else
          #MAC Chamar a atualização
-         echo ""
+         echo "Mac"
    fi
 }
  
 function LimparLixeira () {
    echo "Limpando sua lixeira ..."
+   #Chama o método que confere qual o sistema
    valor=$(confereSistemaOperacional)
-   if [ $? -eq 0 ];
+   #Confere se é true ou false
+   if [ $? -eq 1 ];
       then
          #LINUX Chamar a atualização
-         echo ""
+         echo "Linux"
       else
          #MAC Chamar a atualização
-         echo ""
+         echo "Mac"
    fi
 }
  
 function RemoverCache () {
    echo "Removendo a cache ..."
+   #Chama o método que confere qual o sistema
    valor=$(confereSistemaOperacional)
-   if [ $? -eq 0 ];
+   #Confere se é true ou false
+   if [ $? -eq 1 ];
       then
          #LINUX Chamar a atualização
-         echo ""
+         echo "Linux"
       else
          #MAC Chamar a atualização
-         echo ""
+         echo "Mac"
    fi
 }
  
 function RepararPermissoes () {
    echo "Reparando permissões ..."
+   #Chama o método que confere qual o sistema
    valor=$(confereSistemaOperacional)
-   if [ $? -eq 0 ]
+   #Confere se é true ou false
+   if [ $? -eq 1 ]
       then
          #LINUX Chamar a atualização
-         echo ""
+         echo "Linux"
       else
          #MAC Chamar a atualização
-         echo ""
+         echo "Mac"
    fi
+}
+
+function OpcaoInvalida (){
+   echo -e "===================================="
+   echo -e "======| Sua opção é inválida! |====="
+}
+
+function MenuInicial (){
+   echo -e "===================================="
+   echo -e "===| Entre com a opção desejada |==="
+   echo -e "===================================="
+   echo -e "1 - Limpar lixeira"
+   echo -e "2 - Remover logs de cache"
+   echo -e "3 - Atualizar o sistema"
+   echo -e "4 - Reparar permissões de disco"
+   echo -e "5 - Sair"
+}
+
+function Sair (){
+   echo -e "=================================="
+   echo -e "=========| S A I N D O |=========="
+   echo -e "=================================="
 }
  
 function ValidarOpcoes () {
+   #Limpo a tela
    clear
    if [ $1 = "1" ]; then
       LimparLixeira
@@ -77,34 +111,39 @@ function ValidarOpcoes () {
       Atualizar
    elif [ $1 = "4" ]; then
       RepararPermissoes
-   elif [ $1 = "5" ]; then
-      echo -e "=================================="
-      echo -e "===========| E X I T |============"
-      echo -e "=================================="
+   #Sair da aplicação
+   elif [ $1 = "5" ]; then 
+      Sair
       exit 1
+   #Caso seja uma opção inválida
    else
-      echo -e "===================================="
-      echo -e "======| Sua opção é inválida! |====="
+      OpcaoInvalida
    fi
 }
 
+#Aplicação
+clear
 while true;
 do
+   #Confere se o usuário é o root
    if [ $? -ne "0" ]; then
       echo -e "======================================================"
-      echo -e "===| Você não é root, execute como super-usuario! |==="
+      echo -e "===| Você não é root, execute como super-usuário! |==="
       echo -e "======================================================"
       exit 1
    fi
-   echo -e "===================================="
-   echo -e "===| Entre com a opção desejada |==="
-   echo -e "===================================="
-   echo -e "1 - Limpar lixeira"
-   echo -e "2 - Remover logs de cache"
-   echo -e "3 - Atualizar o sistema"
-   echo -e "4 - Reparar permissões de disco"
-   echo -e "5 - Sair"
+   #Cria o menu
+   MenuInicial
    read -p "$: " op
  
-   ValidarOpcoes $op
+   #Verifico se a entrada não é vazia
+   if [[ -z "${op}" ]]; 
+   then
+      clear
+      OpcaoInvalida
+   else
+      #Chama as funções de acordo com a opção escolhida
+      ValidarOpcoes $op
+   fi
+
 done
