@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Funções
+#=====| FUNÇÕES |=====
 function confereSistemaOperacional (){
    #Guardo o resultado do método que busca as informações do sistema
    cod=`uname -mrs`
@@ -99,6 +99,12 @@ function Sair (){
    echo -e "=========| S A I N D O |=========="
    echo -e "=================================="
 }
+
+function MensagemRoot() {
+   echo -e "======================================================"
+   echo -e "===| Você não é root, execute como super-usuário! |==="
+   echo -e "======================================================"
+}
  
 function ValidarOpcoes () {
    #Limpo a tela
@@ -121,15 +127,13 @@ function ValidarOpcoes () {
    fi
 }
 
-#Aplicação
+#=====| MENU PRINCIPAL |=====
 clear
 while true;
 do
    #Confere se o usuário é o root
    if [ $? -ne "0" ]; then
-      echo -e "======================================================"
-      echo -e "===| Você não é root, execute como super-usuário! |==="
-      echo -e "======================================================"
+      MensagemRoot
       exit 1
    fi
    #Cria o menu
