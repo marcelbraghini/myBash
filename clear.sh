@@ -26,10 +26,12 @@ function Atualizar () {
    if [ $? -eq 1 ]
       then
          #LINUX Chamar a atualização
-         echo "Linux"
+         `sudo apt update`
+         `sudo apt upgrade`
+         echo "Seu sistema é Linux"
       else
          #MAC Chamar a atualização
-         echo "Mac"
+         echo "Seu sistema é Mac"
    fi
 }
  
@@ -41,10 +43,11 @@ function LimparLixeira () {
    if [ $? -eq 1 ];
       then
          #LINUX Chamar a atualização
-         echo "Linux"
+         `sudo rm -rf /home/marcelb/.local/share/Trash/files/`
+         echo "Seu sistema é Linux"
       else
          #MAC Chamar a atualização
-         echo "Mac"
+         echo "Seu sistema é Mac"
    fi
 }
  
@@ -56,10 +59,10 @@ function RemoverCache () {
    if [ $? -eq 1 ];
       then
          #LINUX Chamar a atualização
-         echo "Linux"
+         echo "Seu sistema é Linux"
       else
          #MAC Chamar a atualização
-         echo "Mac"
+         echo "Seu sistema é Mac"
    fi
 }
  
@@ -71,10 +74,10 @@ function RepararPermissoes () {
    if [ $? -eq 1 ]
       then
          #LINUX Chamar a atualização
-         echo "Linux"
+         echo "Seu sistema é Linux"
       else
          #MAC Chamar a atualização
-         echo "Mac"
+         echo "Seu sistema é Mac"
    fi
 }
 
